@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, { createContext, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,10 +8,14 @@ import {
 } from "react-router-dom";
 import Home from './Components/Home/Home';
 import NavigationBar from './Components/SharedComponents/NavigationBar/NavigationBar';
+import Login from './Components/Login/Login';
+
+export const UserContext = createContext()
 
 function App() {
+  const [signedInUser, setSignedInUser] = useState({});
   return (
-    <div className="full-web-ui">
+    <UserContext.Provider value={[signedInUser, setSignedInUser]}>
       <Router>
         <NavigationBar></NavigationBar>
         <Switch>
@@ -21,9 +25,12 @@ function App() {
           <Route exact path="/">
             <Home></Home>
           </Route>
+          <Route path="/login">
+            <Login></Login>
+          </Route>
         </Switch>
       </Router>
-    </div>
+    </UserContext.Provider>
   );
 }
 
