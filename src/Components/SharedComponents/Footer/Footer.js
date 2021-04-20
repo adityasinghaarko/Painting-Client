@@ -33,7 +33,7 @@ const Footer = () => {
     }
 
 return (
-    <section style={footerStyle} className="row mt-5">
+    <section style={footerStyle} className="row">
         {
             columns.map(column => <Column column={column}></Column>)
         }

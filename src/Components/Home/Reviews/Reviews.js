@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Container } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner'
 
 const Reviews = () => {
-    const reviews = [
-        {
-            name: 'Aditya Singha',
-            profession: "Doctor",
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus blanditiis laboriosam assumenda!'
-        },
-        {
-            name: "Peter Parkour",
-            profession: "Doctor",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus blanditiis laboriosam assumenda!"
-        },
-        {
-            name: "John Smith",
-            profession: "Doctor",
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus blanditiis laboriosam assumenda!"
-        }
-    ]
+    const [reviews, setReviews] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true)
+        fetch('http://localhost:5000/reviews')
+        .then(res => res.json())
+        .then(data => {
+            setReviews(data);
+            setLoading(false)
+        })
+    }, [])
+
 
     const ReviewCard = ({ review }) => {
         return (
@@ -40,6 +37,7 @@ const Reviews = () => {
         <section className="mt-5">
             <Container className="mt-5">
                 <h1 className="text-center">Reviews</h1>
+                { loading && <Spinner className="text-center" animation="border" variant="warning" /> }
                 <div className="row">
                     {
                         reviews.map(review => <ReviewCard review={review}></ReviewCard>)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import firebase from "firebase/app";
 import "firebase/auth";
 import { useContext } from 'react';
@@ -6,13 +6,14 @@ import { useHistory, useLocation } from 'react-router';
 import { UserContext } from '../../App';
 import firebaseConfig from './firebaseConfig';
 
-if (firebase.apps.length === 0){
+if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
 }
 
 const Login = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     const [signedInUser, setSignedInUser] = useContext(UserContext)
+    const [isAdmin, setIsAdmin] = useState(undefined)
 
     const history = useHistory();
     const location = useLocation();
@@ -24,16 +25,29 @@ const Login = () => {
             .then((result) => {
                 /** @type {firebase.auth.OAuthCredential} */
                 var user = result.user;
-                var {displayName, email} = result.user;
+                var { displayName, email } = result.user;
+
+                fetch(`http://localhost:5000/checkAdmin?email=${email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setIsAdmin(data)
+                        sessionStorage.setItem('isAdmin', data);
+                    })
+                
                 const signedInUser = {
-                    name : displayName, 
-                    email : email
+                    name: displayName,
+                    email: email,
+                    isAdmin : isAdmin
                 }
+                
+
                 setSignedInUser(signedInUser);
+                sessionStorage.setItem('email', email)
+                sessionStorage.setItem('name', displayName)
                 storeAuthToken()
 
                 alert("Signed In as " + signedInUser.name)
-                // history.replace(from);
+                history.replace(from);
             }).catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -41,15 +55,16 @@ const Login = () => {
                 var credential = error.credential;
                 // ...
             });
-        
-            const storeAuthToken = () => {
-                firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+
+        const storeAuthToken = () => {
+            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
                 .then(function (idToken) {
                     sessionStorage.setItem('token', idToken)
+
                 }).catch(function (error) {
                     // Handle error
                 });
-            }
+        }
     }
 
     const buttonStyle = {
