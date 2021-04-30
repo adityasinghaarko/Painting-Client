@@ -10,7 +10,7 @@ const ManageServices = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('http://localhost:5000/services')
+        fetch('https://glacial-inlet-59026.herokuapp.com/services')
             .then(res => res.json())
             .then(data => {
                 setServices(data);
@@ -21,7 +21,7 @@ const ManageServices = () => {
     const ServiceRow = ({ service }) => {
 
         const deleteService = () => {
-            fetch(`http://localhost:5000/deleteService/${service._id}`, {
+            fetch(`https://glacial-inlet-59026.herokuapp.com/${service._id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

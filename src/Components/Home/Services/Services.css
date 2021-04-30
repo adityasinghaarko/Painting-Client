@@ -1,0 +1,8 @@
+.serviceCard{
+    background-color: bisque;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+.serviceCard:hover{
+    opacity: 1
+}

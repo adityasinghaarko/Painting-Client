@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner'
+import './Services.css'
 
 const Services = () => {
     const [services, setServices] = useState([])
@@ -10,7 +11,7 @@ const Services = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('http://localhost:5000/services')
+        fetch('https://glacial-inlet-59026.herokuapp.com/services')
             .then(res => res.json())
             .then(data => {
                 setServices(data);
@@ -20,18 +21,22 @@ const Services = () => {
 
     const ServiceCard = ({ service }) => {
         return (
-            <Card className="col-md-4 mt-3">
-                <Card.Img variant="top" src={service.image} />
-                <Card.Body>
-                    <Card.Title>{service.title}</Card.Title>
-                    <Card.Text>
-                        <h6>{service.serviceType}</h6><br />
-                        <p>{service.description}</p>
-                        <h3>${service.budget}</h3>
-                        <button className="btn btn-warning"><Link to={'dashboard/book/'+ service._id}>Book</Link></button>
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+                <Card className="col-md-4 mt-3 serviceCard">
+                    {service.image ?
+                        <img src={`data:image/png;base64,${service.image.img}`} />
+                        :
+                        <Card.Img variant="top" src={service.image} />}
+                    <Card.Body>
+                        <Card.Title>{service.title}</Card.Title>
+                        <Card.Text>
+                            <h6>{service.serviceType}</h6><br />
+                            <p>{service.description}</p>
+                            <h3>${service.budget}</h3>
+                            <button className="btn btn-warning"><Link to={'dashboard/book/' + service._id}>Book</Link></button>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+
         )
     }
 
@@ -39,7 +44,7 @@ const Services = () => {
         <section className="pt-5">
             <Container>
                 <h1 className="text-center">Our Services</h1>
-                { loading && <Spinner className="text-center" animation="border" variant="warning" /> }
+                {loading && <Spinner className="text-center" animation="border" variant="warning" />}
                 <div className="row pt-3">
                     {
                         services.map(service => <ServiceCard service={service}></ServiceCard>)

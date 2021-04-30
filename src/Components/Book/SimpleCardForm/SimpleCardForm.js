@@ -41,7 +41,7 @@ const SimpleCardForm = ({basicInfo, setOverallInfo, overallInfo}) => {
   };
 
   const sendBookingInfoToServer = () => {
-      fetch('http://localhost:5000/addBooking', {
+      fetch('https://glacial-inlet-59026.herokuapp.com/addBooking', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

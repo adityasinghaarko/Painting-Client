@@ -25,7 +25,7 @@ const AddService = () => {
         formData.append('description', info.description);
         formData.append('budget', info.budget);
 
-        fetch('http://localhost:5000/addService',{
+        fetch('https://glacial-inlet-59026.herokuapp.com/addService',{
             method: 'POST',
             body:formData
         })

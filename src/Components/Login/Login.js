@@ -27,7 +27,7 @@ const Login = () => {
                 var user = result.user;
                 var { displayName, email } = result.user;
 
-                fetch(`http://localhost:5000/checkAdmin?email=${email}`)
+                fetch(`https://glacial-inlet-59026.herokuapp.com/checkAdmin?email=${email}`)
                     .then(res => res.json())
                     .then(data => {
                         setIsAdmin(data)

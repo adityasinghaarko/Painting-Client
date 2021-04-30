@@ -7,7 +7,7 @@ const AddAdmin = () => {
     const [email, setEmail] = useState('')
 
     const handleAddAdmin = (e) => {
-        fetch('http://localhost:5000/addAdmin', {
+        fetch('https://glacial-inlet-59026.herokuapp.com/addAdmin', {
             method: 'GET',
             headers:{
                 "Content-Type" : "application/json",

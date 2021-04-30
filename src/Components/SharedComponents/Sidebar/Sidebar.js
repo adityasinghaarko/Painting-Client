@@ -6,7 +6,7 @@ const Sidebar = () => {
     const [signedInUser, setSignedInUser] = useContext(UserContext)
     const [isAdmin, setIsAdmin] = useState(false)
 
-    fetch(`http://localhost:5000/checkAdmin?email=${signedInUser.email || sessionStorage.getItem("email")}`)
+    fetch(`https://glacial-inlet-59026.herokuapp.com/checkAdmin?email=${signedInUser.email || sessionStorage.getItem("email")}`)
                     .then(res => res.json())
                     .then(data => {
                         setIsAdmin(data)

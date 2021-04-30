@@ -29,7 +29,7 @@ const MyBookings = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:5000/bookings?email=${signedInUser.email || sessionStorage.getItem("email")}`, {
+        fetch(`https://glacial-inlet-59026.herokuapp.com/bookings?email=${signedInUser.email || sessionStorage.getItem("email")}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

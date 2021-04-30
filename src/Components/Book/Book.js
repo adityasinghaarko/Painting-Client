@@ -20,7 +20,7 @@ const Book = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/service/${serviceId}`)
+        fetch(`https://glacial-inlet-59026.herokuapp.com/service/${serviceId}`)
             .then(res => res.json())
             .then(data => setService(data[0]))
     }, [])

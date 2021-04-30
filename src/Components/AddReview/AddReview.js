@@ -7,7 +7,7 @@ import Footer from '../SharedComponents/Footer/Footer';
 const AddReview = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = (data, event) => {
-        fetch("http://localhost:5000/addReview", {
+        fetch("https://glacial-inlet-59026.herokuapp.com/addReview", {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
